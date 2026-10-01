@@ -1,0 +1,43 @@
+name: Build Windows
+
+# 构建 Windows x64 安装包并上传到 GitHub Releases（草稿）。
+# 触发方式：仅打 Tag（v*）。Release 先落草稿，人工审核后再 Publish。
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-win:
+    name: Windows x64
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 7.33.7
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: services/wechat-connector/go.mod
+          cache-dependency-path: services/wechat-connector/go.sum
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Windows installer
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # release:win 会 typecheck → 编译 win32 wechat-connector → 补齐 win runtime →
+        # electron-vite build → electron-builder --win --publish always（草稿 Release）。
+        run: pnpm release:win

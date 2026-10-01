@@ -1,0 +1,5 @@
+provider: github
+owner: Claudate
+repo: wechat-team
+releaseType: release
+updaterCacheDirName: tracememo-updater

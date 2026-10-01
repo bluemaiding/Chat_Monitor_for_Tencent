@@ -1,0 +1,54 @@
+import type { SettingsCategoryId } from './types'
+
+export interface SettingsNavigationGroup {
+  label: string
+  items: { id: SettingsCategoryId; label: string }[]
+}
+
+export const SETTINGS_NAVIGATION: SettingsNavigationGroup[] = [
+  {
+    label: '连接',
+    items: [
+      { id: 'account-database', label: '账号与数据库' },
+      { id: 'database-key', label: '数据库密钥' },
+      { id: 'image-key', label: '图片解密' }
+    ]
+  },
+  {
+    label: '智能能力',
+    items: [
+      { id: 'wechat-send', label: '微信发送' },
+      { id: 'wechat-action-logs', label: '发送日志' },
+      { id: 'ai-model', label: 'AI 模型' }
+    ]
+  },
+  {
+    label: '数据管理',
+    items: [
+      // “存储与导出”暂不开放；保留 category/render case 以兼容已有页面状态。
+      // { id: 'storage-export', label: '存储与导出' },
+      { id: 'cache-cleanup', label: '缓存与清理' },
+      { id: 'keyword-monitor', label: '关键词监控' }
+    ]
+  },
+  {
+    label: '应用',
+    items: [
+      // “防撤回”已下线，不再在设置里暴露；保留 category/render case 以兼容已有页面状态。
+      // { id: 'recall-protection', label: '防撤回' },
+      { id: 'appearance', label: '外观与行为' },
+      { id: 'advanced', label: '高级' },
+      { id: 'about', label: '关于' }
+    ]
+  }
+]
+
+export const SETTINGS_CATEGORY_LABELS = {
+  ...Object.fromEntries(
+    SETTINGS_NAVIGATION.flatMap((group) => group.items.map((item) => [item.id, item.label]))
+  ),
+  'personal-wechat-send': '微信发送',
+  'storage-export': '存储与导出',
+  'recall-protection': '防撤回',
+  'keyword-monitor': '关键词监控'
+} as Record<SettingsCategoryId, string>
