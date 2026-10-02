@@ -1,14 +1,15 @@
-# TraceMemo（迹忆）
+# Chat_Monitor_for_Tencent
 
-> ⚠️ **本仓库是 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的个人定制 fork**（Chat_Monitor_for_Tencent）。
+> ⚠️ **本仓库是基于Tracememo的个人定制 fork**（Chat_Monitor_for_Tencent）。
 > 在原版「微信档案 + AI + 日报」的基础上，本 fork **新增了 QQ（通过 SnowLuma / OneBot v11）监控**，并把微信侧和 QQ 侧对齐：监听群置顶、关键成员高亮、群号/群名快筛、按日期或条数拉取历史、一键 AI 群分析。
-> **原版的能力、文档与致谢仍然适用**；下方标注 🆕 的为本 fork 新增/改动。
+> 原版的readme放在最下，仅将修改的部分简略地呈现。
+>
+> 注：本人一开始搜索的关键词是微信群聊消息，所以优先找到了Claudate的wechat-team项目进行二次开发，但是后来发现原版貌似应该是Wxw-Gu的Tracememo，**故本项目的上游原版仍保留前者，但readme保留后者。**
 
 <p align="center">
   <img src="./build/icon.png" width="120" alt="TraceMemo Logo" />
 </p>
-
-<h2 align="center">把微信和 QQ 里的信息，记住、理解、监控，并在需要时行动</h2>
+<h2 align="center">让你不再错过你关注的QQ和微信群聊消息！</h2>
 
 <p align="center">本地优先的微信 / QQ 数据、AI 分析与自动化工作台</p>
 
@@ -16,52 +17,50 @@
   <a href="https://github.com/bluemaiding/Chat_Monitor_for_Tencent"><b>本 fork 仓库</b></a>
   ·
   <a href="https://github.com/Claudate/wechat-team"><b>上游原版</b></a>
-  ·
-  <a href="./docs/user-guide/getting-started.md"><b>第一次使用</b></a>
-  ·
-  <a href="./docs/README.md"><b>完整文档</b></a>
-</p>
 
-<p align="center">
-  <img src="./public/日报.png" alt="TraceMemo 主界面" />
-</p>
 
-<p align="center">
-  <img src="./public/问问微信.png" alt="TraceMemo 问问微信" />
-</p>
+第一次使用需要登录微信，配置密钥。请按照<a href="https://github.com/Wxw-Gu/TraceMemo/blob/main/docs/user-guide/getting-started.md"><b>第一次使用</b></a>的步骤操作。完成以后：
 
-<p align="center">
-  <img src="./public/退群监控.png" alt="TraceMemo 退群监控" />
-</p>
----
+本软件进入页面如下图所示：
 
-## 🎨 社区日报模板
+![1](../../../Desktop/1.png)
 
-TraceMemo 日报除了内置版式，也支持从社区模板市场安装更多样式。社区模板与默认日报读取同一份真实日报数据，只改变展示方式，适合手机长图分享、桌面归档、团队复盘等不同场景。
+星标点亮为监听群，会将这些群置顶，方便查看信息。点击群聊即可查看即时信息，**图片内容需配置图片解密密钥（TODO).**
 
-<p align="center">
-  <a href="https://github.com/Wxw-Gu/TraceMemo-Templates"><b>浏览 TraceMemo 模板社区</b></a>
-  ·
-  <a href="https://github.com/Wxw-Gu/TraceMemo-Templates/tree/main/skills/tracememo-template-contributor"><b>用 AI 制作并投稿模板</b></a>
-</p>
-
-在 TraceMemo 中打开：
-
-**日报 → 今日日报 → 日报模板 → 模板市场**
-
-即可查看、预览、安装和切换已发布的社区模板。
-
-如果你有一张喜欢的日报长图、网页或前端项目，也可以把它交给 Codex、ChatGPT 或其他能够读取 GitHub 仓库的 AI，并让它读取 [TraceMemo Template Contributor Skill](https://github.com/Wxw-Gu/TraceMemo-Templates/tree/main/skills/tracememo-template-contributor)。AI 可以帮助你完成模板转换、真实预览，并在你确认满意后向 [TraceMemo-Templates](https://github.com/Wxw-Gu/TraceMemo-Templates) 提交 Pull Request。
-
-模板通过审核并正式发布后，其他 TraceMemo 用户即可在模板市场中安装使用。
+![image-20261002110310459](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110310459.png)
 
 ---
 
-## TraceMemo 是什么
+点击生成日报即可跳转到日报界面：
 
-TraceMemo（迹忆）原名 **WechatExplorer** 是一款本地优先的微信数据、AI 分析与自动化工作台，把聊天变成可浏览、可搜索、可理解、可追溯的信息。
+![image-20261002110350957](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110350957.png)
 
-先用档案找原话，再按需要使用 AI Search、日报、监控或 Agent。普通浏览、搜索和导出不需要 AI。
+配置一个API即可输出日报。功能和原版相同，暂时没有改动。
+
+![image-20261002110527768](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110527768.png)
+
+日报以长图输出，样式大概如图所示。
+
+接下来是重点修改的QQ端。首先需要安装snowluma并启动（**同时需要你的QQ账号保持登录**）。
+
+![image-20261002110619062](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110619062.png)
+
+启动后打开WebUI，向QQ注入监听。
+![image-20261002110815788](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110815788.png)
+
+保持浏览器页面不动，回到软件：
+
+![image-20261002110929131](../../../AppData/Roaming/Typora/typora-user-images/image-20261002110929131.png)
+
+效果如图所示，**注意到缺陷是没法显示表情和图片（TODO）**
+
+QQ的日报会直接呈现出来：
+
+![image-20261002111457447](../../../AppData/Roaming/Typora/typora-user-images/image-20261002111457447.png)
+
+大概功能如上，下面是AI写的车轱辘话。
+
+
 
 ## 核心能力
 
@@ -93,9 +92,117 @@ TraceMemo 支持：
 
 Windows 与 macOS 均支持微信本地数据库连接与数据库 Key 获取。 QQ 能力通过 SnowLuma（OneBot v11）实现，Windows 下已在应用内集成启动器。
 
+
+
+
+
+<div align="center" style="font-size: 32px;">原README</div>
+
+# TraceMemo（迹忆）
+
+<p align="center">
+  <img src="./build/icon.png" width="120" alt="TraceMemo Logo" />
+</p>
+
+
+<h2 align="center">把微信里的信息，记住、理解、监控，并在需要时行动</h2>
+
+<p align="center">本地优先的微信数据、AI 分析与自动化工作台</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/Wxw-Gu/TraceMemo?style=for-the-badge" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/downloads/Wxw-Gu/TraceMemo/total?style=for-the-badge" alt="GitHub downloads" />
+  <img src="https://img.shields.io/github/v/release/Wxw-Gu/TraceMemo?style=for-the-badge" alt="Latest release" />
+</p>
+
+
+<p align="center">
+  <a href="https://github.com/Wxw-Gu/TraceMemo/releases"><b>下载 TraceMemo</b></a>
+  ·
+  <a href="./docs/user-guide/getting-started.md"><b>第一次使用</b></a>
+  ·
+  <a href="./docs/README.md"><b>完整文档</b></a>
+  ·
+  <a href="./docs/concepts/how-it-works.md"><b>TraceMemo 如何工作</b></a>
+</p>
+
+
+<p align="center">
+  <img src="./public/日报.png" alt="TraceMemo 日报" />
+</p>
+
+
+<p align="center">
+  <img src="./public/自动化.png" alt="TraceMemo 自动化" />
+</p>
+
+
+
+---
+
+## 🎨 社区日报模板
+
+TraceMemo 日报除了内置版式，也支持从社区模板市场安装更多样式。社区模板与默认日报读取同一份真实日报数据，只改变展示方式，适合手机长图分享、桌面归档、团队复盘等不同场景。
+
+<p align="center">
+  <a href="https://github.com/Wxw-Gu/TraceMemo-Templates"><b>浏览 TraceMemo 模板社区</b></a>
+  ·
+  <a href="https://github.com/Wxw-Gu/TraceMemo-Templates/tree/main/skills/tracememo-template-contributor"><b>用 AI 制作并投稿模板</b></a>
+</p>
+
+
+在 TraceMemo 中打开：
+
+**日报 → 社区模板市场**
+
+即可查看、预览、安装和切换已发布的社区模板。
+
+如果你有一张喜欢的日报长图、网页或前端项目，也可以把它交给 Codex、ChatGPT 或其他能够读取 GitHub 仓库的 AI，并让它读取 [TraceMemo Template Contributor Skill](https://github.com/Wxw-Gu/TraceMemo-Templates/tree/main/skills/tracememo-template-contributor)。AI 可以帮助你完成模板转换、真实预览，并在你确认满意后向 [TraceMemo-Templates](https://github.com/Wxw-Gu/TraceMemo-Templates) 提交 Pull Request。
+
+模板通过审核并正式发布后，其他 TraceMemo 用户即可在模板市场中安装使用。
+
+---
+
+## TraceMemo 是什么
+
+TraceMemo（迹忆）原名 **WechatExplorer** 是一款本地优先的微信数据、AI 分析与自动化工作台，把聊天变成可浏览、可搜索、可理解、可追溯的信息。
+
+先用档案找原话，再按需要使用 AI Search、日报、监控或 Agent。普通浏览、搜索和导出不需要 AI。
+
+## 核心能力
+
+- 💬 **聊天档案与搜索**：浏览会话，按关键词、备注、昵称或 wxid 查找消息。
+- 🔍 **AI Search / 问问微信**：用自然语言找回模糊记忆，并查看来源。
+- 🧠 **本地知识库**：在本机建立索引，让跨会话、跨时间的查询更稳定。
+- 🖼️ **图片文字索引**：在本机识别微信图片里的文字（截图、公告、报价图），识别结果可以在搜索和「问问微信」里被检索。识别全程不联网，原始图片不会因为本地识别而上传。
+- 📊 **群聊日报**：生成今日、昨日或近 7 天的群聊总结，可保存为 HTML 与 PNG。
+- 🗣️ **群发言统计**：统计群成员的发言量和沉默成员，看清一个群里谁在说、谁一直没说。
+- 👀 **退群监控**：用成员快照对比记录群成员退出事件，支持多群与事件历史。
+- ⚙️ **自动化**：把上面几步按规则串起来——定时生成并发送日报、成员退群时发送通知；能发到哪里取决于当前的发送能力。
+- 🔊 **文字转语音**：把文字生成语音，试听后发送到当前会话。
+- 🤖 **Agent Hub**：在微信里向本机 TraceMemo 提问。
+- 🔌 **外部 Agent / Local HTTP API**：让 Codex 等外部 Agent 查询本机微信历史。
+
+## 💻 平台支持
+
+TraceMemo 2.5.0 支持：
+
+- **Windows x64**
+- **macOS Apple Silicon（M 系列 / arm64）**
+- **macOS Intel（x64）**
+
+Windows 与 macOS 均支持微信本地数据库连接与数据库 Key 获取。
+
+### 关于“发送能力”
+
+浏览、搜索、日报生成、导出、知识库和图片文字索引都不需要额外的发送组件。只有**把内容真正发回微信**这一步——自动发送日报、退群通知、把语音发到会话——依赖本机发送能力：
+
+发送能力未就绪、未绑定或发送失败时，报告本身仍会正常生成并保存在本机，执行记录会显示为“已生成，但未发送”或“已生成，发送失败”，可以稍后重试。
+
 ## 项目缘起
 
 <details>
+
 
 TraceMemo 最早叫 **WechatExplorer**。
 
@@ -139,18 +246,21 @@ TraceMemo 最早叫 **WechatExplorer**。
 <p align="center">
   <img src="./public/二维码.jpg" alt="TraceMemo 交流与售后群二维码" width="280" />
 </p>
-**这个图显然是过期了，可以考虑联系原作者**
+
 
 ## 从你的任务开始
 
 | 想做什么                           | 使用入口                      |
 | ---------------------------------- | ----------------------------- |
 | 找记得原文或关键词的消息           | 档案搜索                      |
-| 找记得大意、但不知道在哪聊过的内容 | AI Search / 问问微信          |
+| 找记得大意、但不知道在哪聊过的内容 | 问问微信（AI Search）         |
+| 找到截图、公告图里写过的文字       | 问问微信 → 图片文字索引       |
 | 长期跨群查询历史                   | 本地知识库                    |
-| 了解一个群今天或近 7 天聊了什么    | 群聊日报                      |
+| 了解一个群今天或近 7 天聊了什么    | 日报                          |
+| 看群里谁最活跃、谁一直没说话       | 档案 → 群聊 → 群发言统计      |
 | 持续关注群成员退出                 | 退群监控                      |
-| 按计划生成并发送群聊日报           | 定时日报                      |
+| 按计划自动生成并发送群聊日报       | 自动化                        |
+| 成员退群时自动发一条通知           | 自动化 → 退群通知             |
 | 把文字生成微信语音                 | 文字转语音                    |
 | 在微信里向本机 TraceMemo 提问      | Agent Hub                     |
 | 让 Codex 等工具查询微信历史        | Reader Skill / Local HTTP API |
@@ -158,20 +268,18 @@ TraceMemo 最早叫 **WechatExplorer**。
 
 ## 快速开始
 
-> 本 fork 不单独发布安装包，请自行从源码构建（见下方「本地构建」与 [CONTRIBUTING.md](./CONTRIBUTING.md)）。原版安装包在上游 [Claudate/wechat-team Releases](https://github.com/Claudate/wechat-team/releases)。
-
-1. 克隆本仓库并 `pnpm install`，`pnpm build:win` 后运行 `dist/win-unpacked/TraceMemo.exe`。
-2. 启动应用，按"第一次使用"页面选择微信数据目录并完成连接。
-3. 需要 QQ：在应用「QQ」页点「启动 SnowLuma」，首次会弹出 WebUI（`http://127.0.0.1:5099`），扫码登录 QQ 后在「协议端点 → HTTP API」建端点，回到本应用填地址 + token 点「连接」。
-4. 需要 AI 时，在"设置 → AI 模型"添加并测试 Provider（微信日报、QQ 群分析共用）。
+1. 从 [GitHub Releases](https://github.com/Wxw-Gu/TraceMemo/releases) 下载对应平台的安装包。
+2. 启动应用，按“第一次使用”页面选择微信数据目录并完成连接。
+3. 打开“档案”，确认联系人和消息已加载后开始搜索。
+4. 需要 AI 时，在“设置 → AI 模型”添加并测试 Provider。
 
 详细步骤见[第一次使用 TraceMemo](./docs/user-guide/getting-started.md)。
 
 ## 文档
 
-- [用户指南](./docs/README.md#用户指南)
+- [用户指南](./docs/README.md#档案与搜索)
 - [AI / Knowledge](./docs/README.md#ai-与知识库)
-- [Monitor / Automation](./docs/README.md#日报与自动化)
+- [日报与自动化](./docs/README.md#日报与自动化)
 - [Agent / API](./docs/README.md#agent--api)
 - [开发文档](./docs/development/overview.md)
 - [隐私与安全](./docs/user-guide/privacy.md)
@@ -182,18 +290,17 @@ TraceMemo 最早叫 **WechatExplorer**。
 
 | 平台    | 架构                           | 微信连接                              | 安装包                          |
 | ------- | ------------------------------ | ------------------------------------- | ------------------------------- |
-| Windows | x64                            | 支持微信 4.x；QQ 经 SnowLuma 已集成   | 自行构建 `dist/win-unpacked`    |
-| macOS   | Apple Silicon（M 系列、arm64） | 自动获取数据库 Key，已适配微信 4.1.13 | 上游 Releases |
-| macOS   | Intel（x64）                   | 自动获取数据库 Key，已适配微信 4.1.13 | 上游 Releases |
+| Windows | x64                            | 支持微信 4.x                          | `tracememo-<version>-setup.exe` |
+| macOS   | Apple Silicon（M 系列、arm64） | 自动获取数据库 Key，已适配微信 4.1.13 | `tracememo-<version>-arm64.dmg` |
+| macOS   | Intel（x64）                   | 自动获取数据库 Key，已适配微信 4.1.13 | `tracememo-<version>-x64.dmg`   |
 
 ## 参与贡献
 
-本仓库是个人 fork，定制改动放在 **`blue-version`** 分支（`main` 保留与上游同步的内容）。
+稳定版在 `main`，只在发版时更新；所有改动都先进 `develop`，随**下一个版本**一起发布。
 
-- 想直接用上本 fork 的 QQ / 监控能力：切到 `blue-version` 分支自行构建。
-- 想把改动贡献回上游：请遵循上游 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的流程——**基于 `develop` 拉分支、PR 目标设为 `develop`**，指向 `main` 的 PR 会被关闭。
+**提 PR 请基于 `develop` 拉新分支，并把 PR 的目标分支设为 `develop`** —— 指向 `main` 的 PR 会被直接关闭。
 
-分支流程、提交信息风格、PR 前自检、**本地构建（含 Windows 的 Go / winCodeSign 等坑）与 SnowLuma 环境搭建**，都在[参与贡献指南](./CONTRIBUTING.md)。
+分支流程、提交信息风格、PR 前自检，以及**给 AI Agent 的硬性规则**，都在[参与贡献指南](./CONTRIBUTING.md)。
 
 ## 致谢
 
@@ -224,7 +331,7 @@ TraceMemo 在早期适配微信 4.x 时，曾参考 **[WeFlow](https://github.co
 
 这个项目起初只是一个一时兴起的项目，所以它大概也不会有一份特别严肃的产品路线图。
 
-我可能会按照自己的兴趣继续折腾，也可能突然加入一些奇奇怪怪、但觉得有意思的功能—— 比如让AI给某个好友, 某个群发一个语音条(逗逗群友) 或者定时生成群聊日报并做成微信卡片。
+我可能会按照自己的兴趣继续折腾，也可能突然加入一些奇奇怪怪、但觉得有意思的功能
 
 也因此，这个项目随时可能继续折腾，也可能因为其他事情暂时搁置。如果你有想要的功能，可以提Issue；如果觉得现有实现不符合你的需求，也欢迎直接 Fork 后自己改。
 
@@ -233,3 +340,4 @@ TraceMemo 在早期适配微信 4.x 时，曾参考 **[WeFlow](https://github.co
   <br />
   把微信聊过的事，找回来、问清楚、留下来。
 </p>
+
