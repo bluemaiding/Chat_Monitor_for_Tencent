@@ -2,7 +2,7 @@
 
 > ⚠️ **本仓库是 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的个人定制 fork**（Chat_Monitor_for_Tencent）。
 > 在原版「微信档案 + AI + 日报」的基础上，本 fork **新增了 QQ（通过 SnowLuma / OneBot v11）监控**，并把微信侧和 QQ 侧对齐：监听群置顶、关键成员高亮、群号/群名快筛、按日期或条数拉取历史、一键 AI 群分析。
-> 原版的能力、文档与致谢仍然适用；下方标注 🆕 的为本 fork 新增/改动。
+> **原版的能力、文档与致谢仍然适用**；下方标注 🆕 的为本 fork 新增/改动。
 
 <p align="center">
   <img src="./build/icon.png" width="120" alt="TraceMemo Logo" />
@@ -187,9 +187,9 @@ TraceMemo 最早叫 **WechatExplorer**。
 
 ## 参与贡献
 
-本仓库是个人 fork，定制改动放在 **`tracememo-custom`** 分支（`main` 保留与上游同步的内容）。
+本仓库是个人 fork，定制改动放在 **`blue-version`** 分支（`main` 保留与上游同步的内容）。
 
-- 想直接用上本 fork 的 QQ / 监控能力：切到 `tracememo-custom` 分支自行构建。
+- 想直接用上本 fork 的 QQ / 监控能力：切到 `blue-version` 分支自行构建。
 - 想把改动贡献回上游：请遵循上游 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的流程——**基于 `develop` 拉分支、PR 目标设为 `develop`**，指向 `main` 的 PR 会被关闭。
 
 分支流程、提交信息风格、PR 前自检、**本地构建（含 Windows 的 Go / winCodeSign 等坑）与 SnowLuma 环境搭建**，都在[参与贡献指南](./CONTRIBUTING.md)。
