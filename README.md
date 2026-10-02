@@ -1,27 +1,25 @@
 # TraceMemo（迹忆）
 
+> ⚠️ **本仓库是 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的个人定制 fork**（Chat_Monitor_for_Tencent）。
+> 在原版「微信档案 + AI + 日报」的基础上，本 fork **新增了 QQ（通过 SnowLuma / OneBot v11）监控**，并把微信侧和 QQ 侧对齐：监听群置顶、关键成员高亮、群号/群名快筛、按日期或条数拉取历史、一键 AI 群分析。
+> 原版的能力、文档与致谢仍然适用；下方标注 🆕 的为本 fork 新增/改动。
+
 <p align="center">
   <img src="./build/icon.png" width="120" alt="TraceMemo Logo" />
 </p>
 
-<h2 align="center">把微信里的信息，记住、理解、监控，并在需要时行动</h2>
+<h2 align="center">把微信和 QQ 里的信息，记住、理解、监控，并在需要时行动</h2>
 
-<p align="center">本地优先的微信数据、AI 分析与自动化工作台</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/stars/Claudate/wechat-team?style=for-the-badge" alt="GitHub stars" />
-  <img src="https://img.shields.io/github/downloads/Claudate/wechat-team/total?style=for-the-badge" alt="GitHub downloads" />
-  <img src="https://img.shields.io/github/v/release/Claudate/wechat-team?style=for-the-badge" alt="Latest release" />
-</p>
+<p align="center">本地优先的微信 / QQ 数据、AI 分析与自动化工作台</p>
 
 <p align="center">
-  <a href="https://github.com/Claudate/wechat-team/releases"><b>下载 TraceMemo</b></a>
+  <a href="https://github.com/bluemaiding/Chat_Monitor_for_Tencent"><b>本 fork 仓库</b></a>
+  ·
+  <a href="https://github.com/Claudate/wechat-team"><b>上游原版</b></a>
   ·
   <a href="./docs/user-guide/getting-started.md"><b>第一次使用</b></a>
   ·
   <a href="./docs/README.md"><b>完整文档</b></a>
-  ·
-  <a href="./docs/concepts/how-it-works.md"><b>TraceMemo 如何工作</b></a>
 </p>
 
 <p align="center">
@@ -76,15 +74,24 @@ TraceMemo（迹忆）原名 **WechatExplorer** 是一款本地优先的微信数
 - 🤖 **Agent Hub**：在微信里调用本机 TraceMemo。
 - 🔌 **外部 Agent / Local HTTP API**：让外部 Agent 查询本机微信历史。
 
+### 🆕 本 fork 新增：QQ 支持 + 微信/QQ 对齐的监控体验
+
+- 🐧 **QQ 接入（SnowLuma / OneBot v11）**：应用内一键启动/停止 SnowLuma、查看日志、打开 WebUI，连接后即可浏览 QQ 群与消息。
+- 📥 **按日期 / 条数拉取 QQ 历史**：今天 / 近三天 / 近一周快捷预设，或自定义日期范围；也可拉最近 200/500/1000 条或全部本地缓存（靠 `message_id` 锚点自动翻页）。
+- 🤖 **QQ 群 AI 分析**：勾选板块（话题热点 / 关键结论 / 待办 / 风险 / 时间线 / 成员动态 / 氛围）+ 风格模板（简报 / 详细 / 日报式），用你配置的 DeepSeek 等模型一键总结。
+- ⭐ **监听群置顶**（微信 + QQ）：给群点 ☆ 监听，被监听的群排到列表最上面。
+- 🧑‍‍🧑 **关键成员高亮**（微信 + QQ）：关注某人后，其消息整条高亮，微信侧复用已有的「关注成员」体系。
+- 🔎 **会话快筛**（微信 + QQ）：只看群 / 只看监听 / 群号或群名搜索。
+
 ## 💻 平台支持
 
-TraceMemo 2.4.0 支持：
+TraceMemo 支持：
 
-- **Windows x64**
+- **Windows x64**（本 fork 主要使用与验证的平台）
 - **macOS Apple Silicon（M 系列 / arm64）**
 - **macOS Intel（x64）**
 
-Windows 与 macOS 均支持微信本地数据库连接与数据库 Key 获取。
+Windows 与 macOS 均支持微信本地数据库连接与数据库 Key 获取。 QQ 能力通过 SnowLuma（OneBot v11）实现，Windows 下已在应用内集成启动器。
 
 ## 项目缘起
 
@@ -150,10 +157,12 @@ TraceMemo 最早叫 **WechatExplorer**。
 
 ## 快速开始
 
-1. 从 [GitHub Releases](https://github.com/Claudate/wechat-team/releases) 下载对应平台的安装包。
-2. 启动应用，按“第一次使用”页面选择微信数据目录并完成连接。
-3. 打开“档案”，确认联系人和消息已加载后开始搜索。
-4. 需要 AI 时，在“设置 → AI 模型”添加并测试 Provider。
+> 本 fork 不单独发布安装包，请自行从源码构建（见下方「本地构建」与 [CONTRIBUTING.md](./CONTRIBUTING.md)）。原版安装包在上游 [Claudate/wechat-team Releases](https://github.com/Claudate/wechat-team/releases)。
+
+1. 克隆本仓库并 `pnpm install`，`pnpm build:win` 后运行 `dist/win-unpacked/TraceMemo.exe`。
+2. 启动应用，按"第一次使用"页面选择微信数据目录并完成连接。
+3. 需要 QQ：在应用「QQ」页点「启动 SnowLuma」，首次会弹出 WebUI（`http://127.0.0.1:5099`），扫码登录 QQ 后在「协议端点 → HTTP API」建端点，回到本应用填地址 + token 点「连接」。
+4. 需要 AI 时，在"设置 → AI 模型"添加并测试 Provider（微信日报、QQ 群分析共用）。
 
 详细步骤见[第一次使用 TraceMemo](./docs/user-guide/getting-started.md)。
 
@@ -172,17 +181,18 @@ TraceMemo 最早叫 **WechatExplorer**。
 
 | 平台    | 架构                           | 微信连接                              | 安装包                          |
 | ------- | ------------------------------ | ------------------------------------- | ------------------------------- |
-| Windows | x64                            | 支持微信 4.x                          | `tracememo-<version>-setup.exe` |
-| macOS   | Apple Silicon（M 系列、arm64） | 自动获取数据库 Key，已适配微信 4.1.13 | `tracememo-<version>-arm64.dmg` |
-| macOS   | Intel（x64）                   | 自动获取数据库 Key，已适配微信 4.1.13 | `tracememo-<version>-x64.dmg`   |
+| Windows | x64                            | 支持微信 4.x；QQ 经 SnowLuma 已集成   | 自行构建 `dist/win-unpacked`    |
+| macOS   | Apple Silicon（M 系列、arm64） | 自动获取数据库 Key，已适配微信 4.1.13 | 上游 Releases |
+| macOS   | Intel（x64）                   | 自动获取数据库 Key，已适配微信 4.1.13 | 上游 Releases |
 
 ## 参与贡献
 
-稳定版在 `main`，只在发版时更新；所有改动都先进 `develop`，随**下一个版本**一起发布。
+本仓库是个人 fork，定制改动放在 **`tracememo-custom`** 分支（`main` 保留与上游同步的内容）。
 
-**提 PR 请基于 `develop` 拉新分支，并把 PR 的目标分支设为 `develop`** —— 指向 `main` 的 PR 会被直接关闭。
+- 想直接用上本 fork 的 QQ / 监控能力：切到 `tracememo-custom` 分支自行构建。
+- 想把改动贡献回上游：请遵循上游 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的流程——**基于 `develop` 拉分支、PR 目标设为 `develop`**，指向 `main` 的 PR 会被关闭。
 
-分支流程、提交信息风格、PR 前自检，以及**给 AI Agent 的硬性规则**，都在[参与贡献指南](./CONTRIBUTING.md)。
+分支流程、提交信息风格、PR 前自检、**本地构建（含 Windows 的 Go / winCodeSign 等坑）与 SnowLuma 环境搭建**，都在[参与贡献指南](./CONTRIBUTING.md)。
 
 ## 致谢
 

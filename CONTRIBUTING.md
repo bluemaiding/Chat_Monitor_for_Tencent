@@ -3,6 +3,38 @@
 > 这份文档同时写给人和 AI Agent。文末有给 Agent 的英文硬性规则。
 > 如果你只是想把 TraceMemo 跑起来，看[第一次使用](./docs/user-guide/getting-started.md)就够了。
 
+> ⚠️ **本仓库是 [Claudate/wechat-team](https://github.com/Claudate/wechat-team) 的个人定制 fork**（Chat_Monitor_for_Tencent），新增了 QQ（SnowLuma / OneBot v11）监控与微信/QQ 对齐的监听群、关键成员、快筛、AI 群分析。
+> 下文「一句话规则 / develop 流程 / AI Agent 规则」是**上游的贡献约定**；本 fork 的定制改动放在 **`tracememo-custom`** 分支，不走上游 PR 流程。想回馈上游时再遵循 develop 规则。
+
+## 🆕 本 fork：本地构建与 QQ/SnowLuma 环境
+
+### Windows 本地构建（含踩过的坑）
+
+```bash
+# 依赖：Node 22 + pnpm 7.33.7 + Go（用于编译 wechat-connector 原生模块）
+pnpm install --ignore-scripts   # 跳过 ffmpeg-static 等易超时的 postinstall
+pnpm typecheck
+pnpm build:win                  # 产物在 dist/win-unpacked/TraceMemo.exe
+```
+
+- **Go 路径**：`build:win` 会调用 `go build` 编译 `resources/connectors/wechat`。若 Go 装在非默认位置，把它的 `bin` 加进 PATH（例如 `C:\Go\go\bin`），否则报 `spawn go ENOENT`。
+- **winCodeSign 报错可忽略**：打包 NSIS 安装包时常因创建符号链接失败而中断（`Cannot create symbolic link ... libcrypto.dylib`）。这不影响**免安装版**——直接用 `dist/win-unpacked/TraceMemo.exe` 即可。
+- **国内网络**：Go 模块用 `set GOPROXY=https://goproxy.cn,direct`；Electron 镜像见仓库 `.npmrc`。
+- **部署**：把 `dist/win-unpacked/` 复制到 `C:\Users\<你>\AppData\Local\Programs\TraceMemo\`，桌面快捷方式指向那里的 `TraceMemo.exe` 即可日常使用。
+
+### QQ / SnowLuma 环境
+
+本 fork 通过 [SnowLuma](https://github.com/SnowLuma/SnowLuma)（OneBot v11）接入 QQ。首次使用：
+
+1. 下载 SnowLuma Windows 便携版，解压到一个固定目录（如 `C:\Users\<你>\Downloads\SnowLuma`）。
+2. 在应用「QQ」页填好安装路径，点「启动 SnowLuma」（应用内 spawn `node.exe index.mjs`，脱离运行，重启应用不会误杀）。
+3. 点「打开 WebUI」→ 用启动日志里的一次性密码登录（「查看日志」按钮可见），改密码、同意 EULA。
+4. 在 WebUI「进程注入」把 SnowLuma 注入本机 QQ NT 并登录账号。
+5. 在「协议端点 → **HTTP API**」新建 HTTP 服务端，记下端口（如 3000）和可选 token。
+6. 回到本应用「QQ」页，填 `http://127.0.0.1:<端口>` + token，点「连接」即可拉群列表与消息。
+
+**已知限制**：QQ 消息只能读到 QQ 客户端**本地已缓存**的历史（没在 QQ 里翻过的群是空的）；OneBot 接口不提供"未读"概念。QQ 历史接口每页上限 200 条，本应用靠 `message_id` 锚点自动向前翻页聚合。
+
 ## 一句话规则
 
 **从 `develop` 拉分支，把 PR 提给 `develop`。**
